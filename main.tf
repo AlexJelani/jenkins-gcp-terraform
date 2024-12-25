@@ -12,12 +12,7 @@ resource "google_service_account" "jenkins" {
 }
 
 resource "google_project_iam_member" "jenkins_roles" {
-  for_each = toset([
-    "roles/compute.admin",
-    "roles/iam.serviceAccountUser",
-    "roles/config.agent"
-  ])
-  role    = each.key
+  role    = "roles/editor"
   member  = "serviceAccount:${google_service_account.jenkins.email}"
   project = var.project_id
 }
